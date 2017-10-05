@@ -3,10 +3,10 @@ package com.matrix.multiplication;
 import java.util.stream.IntStream;
 import com.matrix.Matrix;
 
-public class StreamMatrixMultiplier implements MatrixMultiplier {
+public class StreamMatrixMultiplier implements MatrixMultiplier<Double> {
 
 	@Override
-	public Matrix<? extends Number> multiply(Matrix<? extends Number> m1, Matrix<? extends Number> m2) {
+	public Matrix<Double> multiply(Matrix<Double> m1, Matrix<Double> m2) {
 		Matrix<Double> matrix = new Matrix<>(Double.class, m1.getRowsSize(), m2.getColumnsSize());
 		
 		IntStream.range(0, m1.getRowsSize()).forEach(i ->

@@ -2,10 +2,10 @@ package com.matrix.multiplication;
 
 import com.matrix.Matrix;
 
-public class SimpleMatrixMultiplier implements MatrixMultiplier {
+public class SimpleMatrixMultiplier implements MatrixMultiplier<Double> {
 
 	@Override
-	public Matrix<? extends Number> multiply(Matrix<? extends Number> m1, Matrix<? extends Number> m2) {
+	public Matrix<Double> multiply(Matrix<Double> m1, Matrix<Double> m2) {
 		Matrix<Double> matrix = new Matrix<>(Double.class, m1.getRowsSize(), m2.getColumnsSize());
 		
 		for (int i = 0; i < m1.getRowsSize(); i++) {

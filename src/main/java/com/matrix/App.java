@@ -1,5 +1,8 @@
 package com.matrix;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.log4j.Logger;
 
@@ -19,14 +22,16 @@ public class App {
 		Matrix<Double> m1 = new Matrix<>(Double.class, generateRandomData(size, size));
 		Matrix<Double> m2 = new Matrix<>(Double.class, generateRandomData(size, size));
 		
-		multiplyMatrixes(new SimpleMatrixMultiplier(), m1, m2);
-		multiplyMatrixes(new MultiThreadedMatrixMultiplier(), m1, m2);
-		multiplyMatrixes(new MultiThreadedMatrixMultiplier2(), m1, m2);
-		multiplyMatrixes(new StreamMatrixMultiplier(), m1, m2);
+		List<MatrixMultiplier<Double>> multipliers = Arrays.asList(
+				new SimpleMatrixMultiplier(),
+				new MultiThreadedMatrixMultiplier(),
+				new MultiThreadedMatrixMultiplier2(),
+				new StreamMatrixMultiplier());
+		
+		multipliers.forEach(multiplier -> multiplyMatrixes(multiplier, m1, m2));
 	}
 	
-	@SuppressWarnings("unchecked")
-	private Matrix<? extends Number> multiplyMatrixes(MatrixMultiplier multiplier, Matrix<Double> m1, Matrix<Double> m2) {
+	private Matrix<Double> multiplyMatrixes(MatrixMultiplier<Double> multiplier, Matrix<Double> m1, Matrix<Double> m2) {
 		long startTime = System.currentTimeMillis();
 		Matrix<Double> matrix = (Matrix<Double>) multiplier.multiply(m1, m2);
 		

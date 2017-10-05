@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 
 import com.matrix.Matrix;
 
-public class MultiThreadedMatrixMultiplier implements MatrixMultiplier {
+public class MultiThreadedMatrixMultiplier implements MatrixMultiplier<Double> {
 	
 	private final static Logger logger = Logger.getLogger(MultiThreadedMatrixMultiplier.class);
 	
@@ -31,7 +31,7 @@ public class MultiThreadedMatrixMultiplier implements MatrixMultiplier {
 	}
 
 	@Override
-	public Matrix<? extends Number> multiply(Matrix<? extends Number> m1, Matrix<? extends Number> m2) {
+	public Matrix<Double> multiply(Matrix<Double> m1, Matrix<Double> m2) {
 		Matrix<Double> matrix = new Matrix<>(Double.class, m1.getRowsSize(), m2.getColumnsSize());
 		
 		ExecutorService multiplyExecutor = Executors.newFixedThreadPool(threads);
@@ -44,16 +44,16 @@ public class MultiThreadedMatrixMultiplier implements MatrixMultiplier {
 		return matrix;
 	}
 	
-	private List<Future<MultipliedValue>> calculate(ExecutorService executor, Matrix<? extends Number> m1, Matrix<? extends Number> m2) {
+	private List<Future<MultipliedValue>> calculate(ExecutorService executor, Matrix<Double> m1, Matrix<Double> m2) {
 		List<Future<MultipliedValue>> futures = new ArrayList<>();
 		
-		Map<Integer, Number[]> columns = new HashMap<>(); 
+		Map<Integer, Double[]> columns = new HashMap<>(); 
 		for (int i = 0; i < m2.getColumnsSize(); i++) {
 			columns.put(i, m2.getColumnElements(i));
 		}
 
 		for (int i = 0; i < m1.getRowsSize(); i++) {
-			Number[] rowElements = m1.getRowElements(i);
+			Double[] rowElements = m1.getRowElements(i);
 			for (int j = 0; j < m2.getColumnsSize(); j++) {
 				futures.add(executor.submit(new MatrixMultiplicationTask(i, j, rowElements, columns.get(j))));
 			}
@@ -89,10 +89,10 @@ public class MultiThreadedMatrixMultiplier implements MatrixMultiplier {
 
 		private final int rowIndex;
 		private final int columnIndex;
-		private final Number[] rowValues;
-		private final Number[] columnValues;
+		private final Double[] rowValues;
+		private final Double[] columnValues;
 		
-		public MatrixMultiplicationTask(int rowIndex, int columnIndex, Number[] rowValues, Number[] columnValues) {
+		public MatrixMultiplicationTask(int rowIndex, int columnIndex, Double[] rowValues, Double[] columnValues) {
 			this.rowIndex = rowIndex;
 			this.columnIndex = columnIndex;
 			this.rowValues = rowValues;

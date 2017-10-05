@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.matrix.Matrix;
 
-public class MultiThreadedMatrixMultiplier2 implements MatrixMultiplier {
+public class MultiThreadedMatrixMultiplier2 implements MatrixMultiplier<Double> {
 	
 	private final static Logger logger = Logger.getLogger(MultiThreadedMatrixMultiplier2.class);
 	
@@ -24,7 +24,7 @@ public class MultiThreadedMatrixMultiplier2 implements MatrixMultiplier {
 	}
 
 	@Override
-	public Matrix<? extends Number> multiply(Matrix<? extends Number> m1, Matrix<? extends Number> m2) {
+	public Matrix<Double> multiply(Matrix<Double> m1, Matrix<Double> m2) {
 		Matrix<Double> matrix = new Matrix<>(Double.class, m1.getRowsSize(), m2.getColumnsSize());
 		
 		ExecutorService multiplyExecutor = Executors.newFixedThreadPool(threads);
