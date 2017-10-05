@@ -45,10 +45,10 @@ public class MatrixMultiplierTest {
 		testMatrixMultiplier(new MultiThreadedMatrixMultiplier2());
 	}
 	
-//	@Test
-//	public void testStreamMatrixMultiplier() {
-//		testMatrixMultiplier(new StreamMatrixMultiplier());
-//	}
+	@Test
+	public void testStreamMatrixMultiplier() {
+		testMatrixMultiplier(new StreamMatrixMultiplier());
+	}
 	
 	private void testMatrixMultiplier(MatrixMultiplier multiplier) {
 		@SuppressWarnings("unchecked")

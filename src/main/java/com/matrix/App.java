@@ -7,6 +7,7 @@ import com.matrix.multiplication.MatrixMultiplier;
 import com.matrix.multiplication.MultiThreadedMatrixMultiplier;
 import com.matrix.multiplication.MultiThreadedMatrixMultiplier2;
 import com.matrix.multiplication.SimpleMatrixMultiplier;
+import com.matrix.multiplication.StreamMatrixMultiplier;
 
 public class App {
 
@@ -21,7 +22,7 @@ public class App {
 		multiplyMatrixes(new SimpleMatrixMultiplier(), m1, m2);
 		multiplyMatrixes(new MultiThreadedMatrixMultiplier(), m1, m2);
 		multiplyMatrixes(new MultiThreadedMatrixMultiplier2(), m1, m2);
-//		multiplyMatrixes(new StreamMatrixMultiplier(), m1, m2);
+		multiplyMatrixes(new StreamMatrixMultiplier(), m1, m2);
 	}
 	
 	@SuppressWarnings("unchecked")
