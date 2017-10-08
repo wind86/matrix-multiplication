@@ -11,11 +11,15 @@ import com.matrix.multiplication.MultiThreadedMatrixMultiplier;
 import com.matrix.multiplication.MultiThreadedMatrixMultiplier2;
 import com.matrix.multiplication.SimpleMatrixMultiplier;
 import com.matrix.multiplication.StreamMatrixMultiplier;
+import com.matrix.multiplication.hadoop.HadoopMatrixMultiplier;
 
 public class App {
 
 	private final static Logger logger = Logger.getLogger(App.class);
 
+	private static final String INPUT_FOLDER = "./input";
+	private static final String OUTPUT_FOLDER = "./output";
+	
 	public void run() {
 		int size = 100;
 		
@@ -29,6 +33,8 @@ public class App {
 				new StreamMatrixMultiplier());
 		
 		multipliers.forEach(multiplier -> multiplyMatrixes(multiplier, m1, m2));
+		
+		hadoopMatrixMultiplication();
 	}
 	
 	private Matrix<Double> multiplyMatrixes(MatrixMultiplier<Double> multiplier, Matrix<Double> m1, Matrix<Double> m2) {
@@ -39,6 +45,15 @@ public class App {
 		logger.info(String.format("%s consumes: %d ms", multiplier.getClass().getSimpleName(), duration));
 		
 		return matrix;
+	}
+	
+	private void hadoopMatrixMultiplication() {
+		HadoopMatrixMultiplier hadoopMatrixMultiplier = new HadoopMatrixMultiplier(INPUT_FOLDER, OUTPUT_FOLDER, 1000, 100, 100, 1000);
+		try {
+			hadoopMatrixMultiplier.calculate();
+		} catch (Exception e) {
+			logger.error("hadoop execution failed", e);
+		}
 	}
 
 	private static Double[][] generateRandomData(int rows, int columns) {

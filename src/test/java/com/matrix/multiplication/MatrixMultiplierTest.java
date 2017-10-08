@@ -12,7 +12,7 @@ public class MatrixMultiplierTest {
 	private Matrix<Double> expectedMatrix;
 	
 	public MatrixMultiplierTest() {
-		this.m1 = new Matrix<>(Double.class, new Double[][]{
+		this.m1 = new Matrix<>(Double.class, new Double[][] {
 			{2.0,  0.0, 4.0, -1.0},
 			{1.0, -1.0, 1.0,  0.0}
 		});
@@ -50,9 +50,8 @@ public class MatrixMultiplierTest {
 		testMatrixMultiplier(new StreamMatrixMultiplier());
 	}
 	
-	private void testMatrixMultiplier(MatrixMultiplier multiplier) {
-		@SuppressWarnings("unchecked")
-		Matrix<Double> calculatedMatrix = (Matrix<Double>) multiplier.multiply(m1, m2);
+	private void testMatrixMultiplier(MatrixMultiplier<Double> multiplier) {
+		Matrix<Double> calculatedMatrix = multiplier.multiply(m1, m2);
 		
 		assertNotNull(calculatedMatrix);
 		assertEquals(expectedMatrix, calculatedMatrix);
