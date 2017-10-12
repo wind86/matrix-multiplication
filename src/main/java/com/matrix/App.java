@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.log4j.Logger;
 
+import com.matrix.multiplication.ForkJoinMatrixMultiplier;
 import com.matrix.multiplication.MatrixMultiplier;
 import com.matrix.multiplication.MultiThreadedMatrixMultiplier;
 import com.matrix.multiplication.MultiThreadedMatrixMultiplier2;
@@ -30,7 +31,8 @@ public class App {
 				new SimpleMatrixMultiplier(),
 				new MultiThreadedMatrixMultiplier(),
 				new MultiThreadedMatrixMultiplier2(),
-				new StreamMatrixMultiplier());
+				new StreamMatrixMultiplier(),
+				new ForkJoinMatrixMultiplier());
 		
 		multipliers.forEach(multiplier -> multiplyMatrixes(multiplier, m1, m2));
 		

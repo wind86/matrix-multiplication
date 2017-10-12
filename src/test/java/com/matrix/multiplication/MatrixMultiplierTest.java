@@ -50,6 +50,11 @@ public class MatrixMultiplierTest {
 		testMatrixMultiplier(new StreamMatrixMultiplier());
 	}
 	
+	@Test
+	public void testForkJoinMatrixMultiplier() {
+		testMatrixMultiplier(new ForkJoinMatrixMultiplier());
+	}
+	
 	private void testMatrixMultiplier(MatrixMultiplier<Double> multiplier) {
 		Matrix<Double> calculatedMatrix = multiplier.multiply(m1, m2);
 		
